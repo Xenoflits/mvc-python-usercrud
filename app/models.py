@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
-#modellen
+#schema
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -15,7 +15,7 @@ class User(Base):
 
 #database initializeren
 engine = create_engine('sqlite:///database.db')
-Base.metadata.create_all('engine')
+Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -38,4 +38,4 @@ def update_user(user_id, name, email, password):
 def delete_user(user_id):
     user = session.query(User).filter(User.id == user_id).first()
     session.delete(user)
-    session.commit
+    session.commit()
